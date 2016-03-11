@@ -47,10 +47,28 @@ include_directories(${TCF_PROPRIETARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/tcf/servi
 
 add_subdirectory(${NOPOLL_DIR} ${CMAKE_CURRENT_BINARY_DIR}/nopoll)
 
+if (NOT DEFINED MAIN)
+    set(MAIN tcf/main/main.c)
+endif()
+
+if(WIN32)
+include(${TCF_DIR}/proprietary/rcmake/rcmacros.cmake)
+
+createRCFile(${EXEC_NAME}
+    "Device Binary"
+     ${TCF_DIR}/proprietary/rcmake/executable.rc.in
+     RC_FILE
+     )
+set(MAIN
+    "${MAIN}"
+    "${RC_FILE}"
+    )
+endif()
+
 set (TCF_EXTRA_DIR ${TCF_PROPRIETARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
 include(../../../cmake-tcf-lib.txt)
 
-add_executable(${EXEC_NAME} ${SRC} tcf/main/main.c)
+add_executable(${EXEC_NAME} ${SRC} ${MAIN})
 if(WIN32)
     target_link_libraries(${TCF_LIB_NAME} version.lib psapi.lib)
 endif()
