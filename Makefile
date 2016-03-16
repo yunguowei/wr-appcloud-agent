@@ -19,6 +19,7 @@ CFILES := $(sort $(foreach dir,$(SRCDIRS),$(wildcard $(dir)/*.c)) $(CFILES))
 CFILES := $(sort $(wildcard tcf/main/*.c) $(CFILES))
 CFILES := $(sort $(foreach fnm,$(wildcard $(TCF_PROPRIETARY_ROOT_DIR)/tcf/services/*.c),$(subst ^$(TCF_PROPRIETARY_ROOT_DIR)/,,^$(fnm)))  $(CFILES))
 CFILES := $(sort $(foreach fnm,$(wildcard $(TCF_PROPRIETARY_ROOT_DIR)/tcf/framework/*.c),$(subst ^$(TCF_PROPRIETARY_ROOT_DIR)/,,^$(fnm)))  $(CFILES))
+CFILES := $(sort $(foreach fnm,$(wildcard $(ROOT_DIR)/system/$(OPSYS)/tcf/*.c),$(subst ^$(ROOT_DIR)/,,^$(fnm)))  $(CFILES))
 
 EXEC = $(BINDIR)/device$(EXTEXE)
 
