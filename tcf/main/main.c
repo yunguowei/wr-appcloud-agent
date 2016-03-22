@@ -309,7 +309,7 @@ static void device_register(const char * dev_cfg) {
             loc_free(name);
         }
     }
-    deviceRegister(dev_url, user, id, platform);
+    deviceRegister(dev_url, user, id, platform, NULL);
     loc_free(user);
     loc_free(id);
     loc_free(platform);
