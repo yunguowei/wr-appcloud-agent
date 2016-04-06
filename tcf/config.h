@@ -342,4 +342,9 @@
 #if !defined(ENABLE_Expressions)
 #  define ENABLE_Expressions        (SERVICE_Expressions)
 #endif
+
+#if !defined(ENABLE_AllStopMode)
+#  define ENABLE_AllStopMode 1
+#endif
+
 #endif /* D_config */
