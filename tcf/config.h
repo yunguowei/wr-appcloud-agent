@@ -327,6 +327,10 @@
 #  define ENABLE_Cmdline        1
 #endif
 
+#if !defined(ENABLE_DeviceManagementProxy)
+#  define ENABLE_DeviceManagementProxy   1
+#endif
+
 #if !defined(ENABLE_PortForwardProxy)
 #  define ENABLE_PortForwardProxy   1
 #endif
