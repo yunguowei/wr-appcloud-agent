@@ -1,23 +1,22 @@
 ROOT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-TCF_AGENT_DIR := $(abspath ../../../agent)
+TCF_AGENT_DIR := $(abspath $(ROOT_DIR)/org.eclipse.tcf.agent/agent)
 include $(TCF_AGENT_DIR)/Makefile.inc
 
-TCF_PROPRIETARY_ROOT_DIR = $(abspath $(ROOT_DIR)/../../agent)
-NOPOLL_VER=0.2.7.b164
-NOPOLL_DIR=$(abspath $(ROOT_DIR)/../../nopoll-0.2.7.b164)
-NOPOLL_OUTDIR=$(BINDIR)/nopoll-$(NOPOLL_VER)/
+TCF_APPCLOUD_CORE_DIR = $(abspath $(ROOT_DIR)/appcloud-core/agent)
+NOPOLL_DIR=$(abspath $(ROOT_DIR)/appcloud-core/nopoll)
+NOPOLL_OUTDIR=$(BINDIR)/nopoll/
 NOPOLL_LIB=$(NOPOLL_OUTDIR)/src/.libs/libnopoll.a
 
-EXTRA_INCDIRS := $(ROOT_DIR) $(ROOT_DIR)system/$(OPSYS) $(ROOT_DIR)/machine/$(MACHINE) $(TCF_PROPRIETARY_ROOT_DIR) $(TCF_PROPRIETARY_ROOT_DIR)/system/$(OPSYS) $(TCF_PROPRIETARY_ROOT_DIR)/machine/$(MACHINE) $(TCF_PROPRIETARY_ROOT_DIR)
+EXTRA_INCDIRS := $(ROOT_DIR) $(ROOT_DIR)system/$(OPSYS) $(ROOT_DIR)/machine/$(MACHINE) $(TCF_APPCLOUD_CORE_DIR) $(TCF_APPCLOUD_CORE_DIR)/system/$(OPSYS) $(TCF_APPCLOUD_CORE_DIR)/machine/$(MACHINE) $(TCF_APPCLOUD_CORE_DIR)
 override CFLAGS += $(foreach dir,$(EXTRA_INCDIRS),-I$(dir)) $(OPTS)
 
-vpath %.c $(TCF_PROPRIETARY_ROOT_DIR)
+vpath %.c $(TCF_APPCLOUD_CORE_DIR)
 
-HFILES := $(foreach dir,$(SRCDIRS),$(wildcard $(dir)/*.h)) $(HFILES) $(wildcard $(NOPOLL_DIR)/src/nopoll.h) $(wildcard $(TCF_PROPRIETARY_ROOT_DIR)/tcf/services/*.h) $(wildcard $(TCF_PROPRIETARY_ROOT_DIR)/tcf/framework/*.h)
+HFILES := $(foreach dir,$(SRCDIRS),$(wildcard $(dir)/*.h)) $(HFILES) $(wildcard $(NOPOLL_DIR)/src/nopoll.h) $(wildcard $(TCF_APPCLOUD_CORE_DIR)/tcf/services/*.h) $(wildcard $(TCF_APPCLOUD_CORE_DIR)/tcf/framework/*.h)
 CFILES := $(sort $(foreach dir,$(SRCDIRS),$(wildcard $(dir)/*.c)) $(CFILES))
 CFILES := $(sort $(wildcard tcf/main/*.c) $(CFILES))
-CFILES := $(sort $(foreach fnm,$(wildcard $(TCF_PROPRIETARY_ROOT_DIR)/tcf/services/*.c),$(subst ^$(TCF_PROPRIETARY_ROOT_DIR)/,,^$(fnm)))  $(CFILES))
-CFILES := $(sort $(foreach fnm,$(wildcard $(TCF_PROPRIETARY_ROOT_DIR)/tcf/framework/*.c),$(subst ^$(TCF_PROPRIETARY_ROOT_DIR)/,,^$(fnm)))  $(CFILES))
+CFILES := $(sort $(foreach fnm,$(wildcard $(TCF_APPCLOUD_CORE_DIR)/tcf/services/*.c),$(subst ^$(TCF_APPCLOUD_CORE_DIR)/,,^$(fnm)))  $(CFILES))
+CFILES := $(sort $(foreach fnm,$(wildcard $(TCF_APPCLOUD_CORE_DIR)/tcf/framework/*.c),$(subst ^$(TCF_APPCLOUD_CORE_DIR)/,,^$(fnm)))  $(CFILES))
 CFILES := $(sort $(foreach fnm,$(wildcard $(ROOT_DIR)/system/$(OPSYS)/tcf/*.c),$(subst ^$(ROOT_DIR)/,,^$(fnm)))  $(CFILES))
 
 EXEC = $(BINDIR)/device$(EXTEXE)

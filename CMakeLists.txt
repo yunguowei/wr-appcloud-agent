@@ -6,9 +6,9 @@ set(CMAKE_COLOR_MAKEFILE OFF)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-set(TCF_DIR ${CMAKE_CURRENT_SOURCE_DIR}/../../..)
-set(TCF_PROPRIETARY_DIR ${TCF_DIR}/proprietary/agent)
-set(NOPOLL_DIR ${TCF_DIR}/proprietary/nopoll-0.2.7.b164)
+set(TCF_DIR ${CMAKE_CURRENT_SOURCE_DIR}/org.eclipse.tcf.agent)
+set(TCF_APPCLOUD_CORE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/appcloud-core/agent)
+set(NOPOLL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/appcloud-core/nopoll)
 set(TCF_LIB_NAME tcf-agent)
 
 if (NOT EXEC_NAME)
@@ -43,7 +43,7 @@ endif()
 include(${NOPOLL_DIR}/nopoll.cmake)
 message(STATUS "operating system:" ${TCF_OPSYS})
 message(STATUS "machine:" ${TCF_MACHINE})
-include_directories(${TCF_PROPRIETARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/tcf/services/ ${CMAKE_CURRENT_SOURCE_DIR} ${NOPOLL_DIR}/src)
+include_directories(${TCF_APPCLOUD_CORE_DIR} ${CMAKE_CURRENT_SOURCE_DIR}/tcf/services/ ${CMAKE_CURRENT_SOURCE_DIR} ${NOPOLL_DIR}/src)
 
 add_subdirectory(${NOPOLL_DIR} ${CMAKE_CURRENT_BINARY_DIR}/nopoll)
 
@@ -51,22 +51,8 @@ if (NOT DEFINED MAIN)
     set(MAIN tcf/main/main.c)
 endif()
 
-if(WIN32)
-include(${TCF_DIR}/proprietary/rcmake/rcmacros.cmake)
-
-createRCFile(${EXEC_NAME}
-    "Device Binary"
-     ${TCF_DIR}/proprietary/rcmake/executable.rc.in
-     RC_FILE
-     )
-set(MAIN
-    "${MAIN}"
-    "${RC_FILE}"
-    )
-endif()
-
-set (TCF_EXTRA_DIR ${TCF_PROPRIETARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
-include(../../../cmake-tcf-lib.txt)
+set (TCF_EXTRA_DIR ${TCF_APPCLOUD_CORE_DIR} ${CMAKE_CURRENT_SOURCE_DIR})
+include(${TCF_DIR}/cmake-tcf-lib.txt)
 
 add_executable(${EXEC_NAME} ${SRC} ${MAIN})
 if(WIN32)
