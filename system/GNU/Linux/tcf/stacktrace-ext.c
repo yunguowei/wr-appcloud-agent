@@ -35,7 +35,11 @@ int linux_trace_stack_bottom_check(StackFrame * frame) {
     if ((symbol != NULL) && (get_symbol_address(symbol, &entry) < 0)) return -1;
     if ((pc >= entry) && (pc < (entry + size)))  return 1;
 
-    if (find_symbol_by_name(frame->ctx, STACK_NO_FRAME, 0, "start_thread", &symbol) < 0) return -1;
+    if (find_symbol_by_name(frame->ctx, STACK_NO_FRAME, 0, "start_thread", &symbol) < 0) {
+        /* Ignore error if start_thread symbol cannot be found */
+        if (get_error_code(errno) != ERR_SYM_NOT_FOUND) return -1;
+        else return 0;
+    }
     if ((symbol != NULL) && (get_symbol_size (symbol, &size) < 0)) return -1;
     if ((symbol != NULL) && (get_symbol_address(symbol, &entry) < 0)) return -1;
     if ((pc >= entry) && (pc < (entry + size))) return 1;
