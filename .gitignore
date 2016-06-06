@@ -1,0 +1,13 @@
+# ignore various emacs droppings
+*~
+\#*\#
+
+obj
+
+# Eclipse project files
+.project
+.cproject
+.wrproject
+
+cscope.out
+
