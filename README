@@ -1,0 +1,7 @@
+wr-appcloud-agent
+=================
+
+This is the TCF Agent used for Wind River Helix App Cloud.
+
+To build this agent, you first need to initialize the submodules using the
+"git submodule update --init -r" command.
