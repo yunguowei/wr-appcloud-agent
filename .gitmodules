@@ -1,6 +1,6 @@
-[submodule "org.eclipse.tcf.agent"]
-	path = org.eclipse.tcf.agent
-	url = git://git.eclipse.org/gitroot/tcf/org.eclipse.tcf.agent.git
 [submodule "appcloud-core"]
 	path = appcloud-core
 	url = ../wr-appcloud-core
+[submodule "tcf-c-core"]
+	path = tcf-c-core
+	url = git://git.eclipse.org/gitroot/tcf/org.eclipse.tcf.agent.git

@@ -6,7 +6,7 @@ set(CMAKE_COLOR_MAKEFILE OFF)
 
 include_directories(${CMAKE_CURRENT_SOURCE_DIR})
 
-set(TCF_DIR ${CMAKE_CURRENT_SOURCE_DIR}/org.eclipse.tcf.agent)
+set(TCF_DIR ${CMAKE_CURRENT_SOURCE_DIR}/tcf-c-core)
 set(TCF_APPCLOUD_CORE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/appcloud-core/agent)
 set(NOPOLL_DIR ${CMAKE_CURRENT_SOURCE_DIR}/appcloud-core/nopoll)
 set(TCF_LIB_NAME tcf-agent)

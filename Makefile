@@ -1,5 +1,5 @@
 ROOT_DIR := $(dir $(abspath $(lastword $(MAKEFILE_LIST))))
-TCF_AGENT_DIR := $(abspath $(ROOT_DIR)/org.eclipse.tcf.agent/agent)
+TCF_AGENT_DIR := $(abspath $(ROOT_DIR)/tcf-c-core/agent)
 include $(TCF_AGENT_DIR)/Makefile.inc
 
 TCF_APPCLOUD_CORE_DIR = $(abspath $(ROOT_DIR)/appcloud-core/agent)
